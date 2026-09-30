@@ -1,19 +1,41 @@
 import React from 'react';
+import { useDashboard } from '../../context/DashboardContext';
+
+const formatNum = (num) => num.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 const IndicatorBox = ({ title, value, subtext, icon, valueColor, subtextColor, borderColor = "border-[#1e3a5f]", titleColor = "text-[#f59e0b]" }) => (
-  <div className={`flex-1 border ${borderColor} bg-[#0a1628] rounded flex items-center p-1.5 gap-2`}>
-    <div className={`border ${borderColor} text-[#f59e0b] w-6 h-6 flex items-center justify-center rounded-sm text-[10px] font-bold shrink-0 bg-[#051120]`}>
+  <div className={`flex-1 border ${borderColor} bg-[#0a1628] rounded flex items-center p-1.5 gap-2 transition-colors duration-500`}>
+    <div className={`border ${borderColor} text-[#f59e0b] w-6 h-6 flex items-center justify-center rounded-sm text-[10px] font-bold shrink-0 bg-[#051120] transition-colors duration-500`}>
       {icon}
     </div>
     <div className="flex flex-col items-center flex-1 justify-center">
       <span className={`text-[8px] ${titleColor} tracking-wider font-bold mb-0.5`}>{title}</span>
-      <span className={`text-[13px] font-bold leading-none mb-0.5 ${valueColor}`}>{value}</span>
-      <span className={`text-[7px] font-bold uppercase tracking-wide ${subtextColor}`}>{subtext}</span>
+      <span className={`text-[13px] font-bold leading-none mb-0.5 ${valueColor} transition-all duration-300`}>{value}</span>
+      <span className={`text-[7px] font-bold uppercase tracking-wide ${subtextColor} transition-colors duration-300`}>{subtext}</span>
     </div>
   </div>
 );
 
+const TickerItem = ({ label, price, changePercent }) => {
+  const isUp = changePercent >= 0;
+  const colorClass = isUp ? "text-[#10b981]" : "text-[#ef4444]";
+  const sign = isUp ? "+" : "";
+  return (
+    <div className="flex items-center gap-4 flex-1 justify-center relative">
+      <span className="text-white font-bold text-[10px]">{label}</span>
+      <span className={`${colorClass} font-bold text-[10px] transition-colors duration-300`}>{formatNum(price)}</span>
+      <span className={`${colorClass} font-bold text-[10px] transition-colors duration-300`}>{sign}{changePercent.toFixed(2)}%</span>
+    </div>
+  );
+};
+
 const TopIndicators = () => {
+  const { bankNifty, nifty50, bankNiftyIndex } = useDashboard();
+
+  // Static for now, as indicators usually come from specific calculations, but we can slightly dynamically change Pivot based on BankNifty
+  const pivotPoint = bankNifty.price + 19.93;
+  const support = bankNifty.price - 704.93;
+
   return (
     <div className="flex flex-col gap-1.5 shrink-0">
       {/* Top 5 Boxes */}
@@ -21,7 +43,7 @@ const TopIndicators = () => {
         <IndicatorBox 
           icon="P" 
           title="PIVOT POINTS" 
-          value="56,364.93" 
+          value={formatNum(pivotPoint)} 
           valueColor="text-[#ef4444]" 
           subtext="BEARISH BIAS" 
           subtextColor="text-[#ef4444]"
@@ -38,7 +60,7 @@ const TopIndicators = () => {
         <IndicatorBox 
           icon="S" 
           title="SUPPORT ZONE" 
-          value="55,640.07" 
+          value={formatNum(support)} 
           valueColor="text-[#10b981]" 
           subtext="NEAREST SUPPORT" 
           subtextColor="text-gray-400" 
@@ -63,23 +85,11 @@ const TopIndicators = () => {
 
       {/* Ticker Tape */}
       <div className="border border-[#1e3a5f] bg-[#051120] rounded flex items-center px-2 py-1 gap-2 h-7">
-        <div className="flex items-center gap-4 flex-1 justify-center relative">
-          <span className="text-white font-bold text-[10px]">BANKNIFTY-I</span>
-          <span className="text-[#10b981] font-bold text-[10px]">56,345.00</span>
-          <span className="text-[#10b981] font-bold text-[10px]">+0.59%</span>
-          <div className="absolute right-0 h-4 w-px bg-[#1e3a5f]"></div>
-        </div>
-        <div className="flex items-center gap-4 flex-1 justify-center relative">
-          <span className="text-white font-bold text-[10px]">NIFTY 50</span>
-          <span className="text-[#10b981] font-bold text-[10px]">23,224.05</span>
-          <span className="text-[#10b981] font-bold text-[10px]">+0.46%</span>
-          <div className="absolute right-0 h-4 w-px bg-[#1e3a5f]"></div>
-        </div>
-        <div className="flex items-center gap-4 flex-1 justify-center">
-          <span className="text-white font-bold text-[10px]">BANKNIFTY</span>
-          <span className="text-[#10b981] font-bold text-[10px]">56,129.05</span>
-          <span className="text-[#10b981] font-bold text-[10px]">+0.60%</span>
-        </div>
+        <TickerItem label="BANKNIFTY-I" price={bankNifty.price} changePercent={bankNifty.changePercent} />
+        <div className="h-4 w-px bg-[#1e3a5f]"></div>
+        <TickerItem label="NIFTY 50" price={nifty50.price} changePercent={nifty50.changePercent} />
+        <div className="h-4 w-px bg-[#1e3a5f]"></div>
+        <TickerItem label="BANKNIFTY" price={bankNiftyIndex.price} changePercent={bankNiftyIndex.changePercent} />
       </div>
     </div>
   );
