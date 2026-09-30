@@ -8,13 +8,13 @@ import './App.css';
 
 function App() {
   return (
-    <div className="min-h-screen bg-[#000814] text-white flex flex-col font-sans p-2 overflow-hidden" style={{ height: '100vh' }}>
+    <div className="w-full h-screen bg-[#050c18] text-white flex flex-col font-sans p-1.5 overflow-hidden box-border">
       <Header />
       
-      <div className="flex flex-1 gap-2 mt-2 min-h-0">
+      <div className="flex flex-1 gap-1.5 mt-1.5 min-h-0">
         <Sidebar />
         
-        <div className="flex flex-col flex-1 gap-2 min-w-0">
+        <div className="flex flex-col flex-1 gap-1.5 min-w-0">
           <TopIndicators />
           <ChartArea />
           <TrendingStocks />

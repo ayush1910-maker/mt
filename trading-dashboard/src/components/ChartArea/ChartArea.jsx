@@ -2,144 +2,189 @@ import React from 'react';
 
 const ChartArea = () => {
   return (
-    <div className="flex-1 border border-[#1e3a5f] bg-[#051120] rounded relative overflow-hidden flex flex-col">
-      {/* Chart content (SVG Mockup) */}
-      <div className="flex-1 relative w-full h-full p-4">
-        {/* Grid lines */}
-        <div className="absolute inset-0 flex flex-col justify-between p-4 pointer-events-none opacity-20">
-          {[...Array(8)].map((_, i) => (
-            <div key={i} className="border-b border-[#1e3a5f] w-full"></div>
-          ))}
-        </div>
-        <div className="absolute inset-0 flex justify-between p-4 pointer-events-none opacity-20">
-          {[...Array(12)].map((_, i) => (
-            <div key={i} className="border-r border-[#1e3a5f] h-full"></div>
-          ))}
-        </div>
-
-        {/* Labels & Markers overlay */}
-        <div className="absolute top-10 left-16 bg-[#ef4444] text-white text-[10px] font-bold px-2 py-1 rounded">
-          SELL @ 56,706.00
-          {/* Arrow pointing down */}
-          <div className="absolute -bottom-1 left-4 w-2 h-2 bg-[#ef4444] transform rotate-45"></div>
-        </div>
-
-        <div className="absolute bottom-20 right-48 bg-[#10b981] text-white text-[10px] font-bold px-2 py-1 rounded">
-          BUY @ 56,197.80
-          {/* Arrow pointing up */}
-          <div className="absolute -top-1 left-4 w-2 h-2 bg-[#10b981] transform rotate-45"></div>
-        </div>
-        
-        <div className="absolute bottom-32 right-1/2 bg-[#f59e0b] text-black text-[10px] font-bold px-2 py-1 rounded">
-          TSI EXIT @ 56,385.00
-        </div>
-
-        {/* Small target hits */}
-        <div className="absolute top-1/2 left-32 text-[#10b981] text-[9px] font-bold">T1 HIT</div>
-        <div className="absolute top-[60%] left-64 text-[#10b981] text-[9px] font-bold">T2 HIT</div>
-        <div className="absolute top-[65%] left-72 text-[#f59e0b] text-[9px] font-bold bg-[#1e293b] px-1 rounded">T3 HIT</div>
-
-        <div className="absolute top-1/2 right-32 text-[#10b981] text-[9px] font-bold">T1 HIT</div>
-        <div className="absolute top-1/3 right-16 text-[#10b981] text-[9px] font-bold">T2 HIT</div>
-
-        {/* Resistance Line */}
-        <div className="absolute top-[60%] left-0 w-full border-t border-[#ef4444] border-dashed opacity-50"></div>
-        <div className="absolute top-[60%] right-12 bg-[#ef4444] text-white text-[9px] font-bold px-2 py-0.5 rounded -translate-y-1/2">
-          RESISTANCE 56,364.93
-        </div>
-
-        {/* Y Axis Prices */}
-        <div className="absolute right-0 top-0 bottom-0 w-12 bg-[#0a1628] border-l border-[#1e3a5f] flex flex-col justify-between py-4 text-[9px] text-gray-400 font-bold items-end pr-1 opacity-70">
-           <span>56,800</span>
-           <span>56,600</span>
-           <span>56,400</span>
-           <span>56,200</span>
-           <span>56,000</span>
-           <span>55,800</span>
-        </div>
-
-        {/* SVG for Lines and Candlesticks */}
-        <svg className="absolute inset-0 w-[calc(100%-3rem)] h-full" preserveAspectRatio="none" viewBox="0 0 1000 400">
-           {/* Moving Averages */}
-           <path d="M 0 150 Q 100 120, 200 200 T 400 250 T 600 260 T 800 320 T 1000 260" fill="none" stroke="#3b82f6" strokeWidth="2" />
-           <path d="M 0 180 Q 100 170, 200 220 T 400 240 T 600 250 T 800 300 T 1000 220" fill="none" stroke="#f59e0b" strokeWidth="2" />
-           
-           {/* Candlesticks (Mock) */}
-           {/* Group 1: Sell off */}
-           <rect x="50" y="130" width="8" height="20" fill="#10b981" />
-           <line x1="54" y1="120" x2="54" y2="160" stroke="#10b981" strokeWidth="2" />
-
-           <rect x="70" y="125" width="8" height="25" fill="#10b981" />
-           <line x1="74" y1="110" x2="74" y2="160" stroke="#10b981" strokeWidth="2" />
-
-           <rect x="90" y="140" width="8" height="40" fill="#ef4444" />
-           <line x1="94" y1="130" x2="94" y2="190" stroke="#ef4444" strokeWidth="2" />
-           <circle cx="94" cy="120" r="4" fill="white" /> {/* Sell Signal Dot */}
-
-           <rect x="110" y="180" width="8" height="30" fill="#ef4444" />
-           <line x1="114" y1="170" x2="114" y2="220" stroke="#ef4444" strokeWidth="2" />
-
-           <rect x="130" y="200" width="8" height="25" fill="#ef4444" />
-           <line x1="134" y1="190" x2="134" y2="240" stroke="#ef4444" strokeWidth="2" />
-
-           <rect x="150" y="225" width="8" height="15" fill="#ef4444" />
-           <line x1="154" y1="210" x2="154" y2="250" stroke="#ef4444" strokeWidth="2" />
-
-           {/* Consolidation */}
-           <rect x="250" y="240" width="8" height="20" fill="#10b981" />
-           <line x1="254" y1="230" x2="254" y2="270" stroke="#10b981" strokeWidth="2" />
-           
-           <rect x="270" y="235" width="8" height="30" fill="#ef4444" />
-           <line x1="274" y1="220" x2="274" y2="275" stroke="#ef4444" strokeWidth="2" />
-
-           <rect x="290" y="250" width="8" height="15" fill="#ef4444" />
-           <line x1="294" y1="240" x2="294" y2="280" stroke="#ef4444" strokeWidth="2" />
-
-           {/* Downward trend */}
-           <rect x="500" y="260" width="8" height="25" fill="#ef4444" />
-           <line x1="504" y1="250" x2="504" y2="290" stroke="#ef4444" strokeWidth="2" />
-           
-           <rect x="520" y="280" width="8" height="30" fill="#ef4444" />
-           <line x1="524" y1="270" x2="524" y2="330" stroke="#ef4444" strokeWidth="2" />
-           
-           <rect x="540" y="300" width="8" height="25" fill="#ef4444" />
-           <line x1="544" y1="290" x2="544" y2="340" stroke="#ef4444" strokeWidth="2" />
-
-           <rect x="560" y="325" width="8" height="20" fill="#ef4444" />
-           <line x1="564" y1="310" x2="564" y2="360" stroke="#ef4444" strokeWidth="2" />
-
-           <rect x="580" y="340" width="8" height="15" fill="#ef4444" />
-           <line x1="584" y1="330" x2="584" y2="370" stroke="#ef4444" strokeWidth="2" />
-
-           {/* Buy reversal */}
-           <rect x="620" y="320" width="8" height="40" fill="#10b981" />
-           <line x1="624" y1="310" x2="624" y2="370" stroke="#10b981" strokeWidth="2" />
-           
-           <rect x="640" y="280" width="8" height="45" fill="#10b981" />
-           <line x1="644" y1="270" x2="644" y2="330" stroke="#10b981" strokeWidth="2" />
-           <circle cx="644" cy="335" r="4" fill="white" /> {/* Buy Signal Dot */}
-           
-           <rect x="660" y="290" width="8" height="20" fill="#10b981" />
-           <line x1="664" y1="280" x2="664" y2="320" stroke="#10b981" strokeWidth="2" />
-
-           <rect x="680" y="260" width="8" height="35" fill="#10b981" />
-           <line x1="684" y1="250" x2="684" y2="300" stroke="#10b981" strokeWidth="2" />
-
-           {/* Trend Up */}
-           <rect x="750" y="240" width="8" height="30" fill="#10b981" />
-           <line x1="754" y1="230" x2="754" y2="280" stroke="#10b981" strokeWidth="2" />
-           
-           <rect x="770" y="210" width="8" height="35" fill="#10b981" />
-           <line x1="774" y1="200" x2="774" y2="260" stroke="#10b981" strokeWidth="2" />
-
-           <rect x="790" y="225" width="8" height="20" fill="#10b981" />
-           <line x1="794" y1="210" x2="794" y2="250" stroke="#10b981" strokeWidth="2" />
-
-           <rect x="810" y="235" width="8" height="15" fill="#10b981" />
-           <line x1="814" y1="220" x2="814" y2="260" stroke="#10b981" strokeWidth="2" />
-
-        </svg>
+    <div className="flex-1 border border-[#1e3a5f] bg-[#051120] rounded relative overflow-hidden flex flex-col min-h-0">
+      {/* Grid lines */}
+      <div className="absolute inset-0 flex flex-col justify-between pt-2 pb-6 px-0 pointer-events-none opacity-20">
+        {[...Array(8)].map((_, i) => (
+          <div key={i} className="border-b border-[#1e3a5f] w-full"></div>
+        ))}
       </div>
+      <div className="absolute inset-0 flex justify-between pt-0 pb-0 px-2 pointer-events-none opacity-20">
+        {[...Array(12)].map((_, i) => (
+          <div key={i} className="border-r border-[#1e3a5f] h-full"></div>
+        ))}
+      </div>
+
+      {/* Y Axis Prices */}
+      <div className="absolute right-0 top-0 bottom-0 w-12 bg-[#051120] border-l border-[#1e3a5f] flex flex-col justify-between py-2 text-[8px] text-gray-400 font-bold items-end pr-1 opacity-80 z-10">
+         <span>56,800</span>
+         <span>56,600</span>
+         <span>56,400</span>
+         <span>56,200</span>
+         <span>56,000</span>
+         <span>55,800</span>
+         <span>55,600</span>
+      </div>
+      
+      {/* Time axis on bottom */}
+      <div className="absolute bottom-0 left-0 right-12 h-4 border-t border-[#1e3a5f] flex justify-between items-center px-4 text-[7px] text-[#3b82f6] font-bold opacity-80 z-10 bg-[#051120]">
+        <span>10:00</span>
+        <span>10:30</span>
+        <span>11:00</span>
+        <span>11:30</span>
+        <span>12:00</span>
+        <span>12:30</span>
+        <span>13:00</span>
+        <span>13:30</span>
+        <span>14:00</span>
+      </div>
+
+      {/* Annotations */}
+      <div className="absolute top-[18%] left-[8%] bg-[#ef4444] text-white text-[8px] font-bold px-1.5 py-0.5 rounded shadow-sm z-20 flex items-center gap-1">
+        SELL @ 56,706.00
+        <div className="absolute -left-1 top-1.5 w-1.5 h-1.5 bg-[#ef4444] transform rotate-45"></div>
+      </div>
+
+      <div className="absolute bottom-[20%] right-[32%] bg-[#10b981] text-white text-[8px] font-bold px-1.5 py-0.5 rounded shadow-sm z-20 flex items-center gap-1">
+        BUY @ 56,197.80
+        <div className="absolute -top-1 left-2 w-1.5 h-1.5 bg-[#10b981] transform rotate-45"></div>
+      </div>
+      
+      <div className="absolute bottom-[35%] right-[55%] bg-[#f59e0b] text-black text-[7px] font-bold px-1 py-0.5 rounded z-20 border border-[#f59e0b]">
+        TSI EXIT @ 56,385.00
+      </div>
+
+      {/* Target hits */}
+      <div className="absolute top-[48%] left-[12%] text-[#10b981] text-[7px] font-bold bg-[#051120] px-1 rounded z-20">T1 HIT</div>
+      <div className="absolute top-[60%] left-[22%] text-[#10b981] text-[7px] font-bold bg-[#051120] px-1 rounded z-20">T2 HIT</div>
+      <div className="absolute top-[68%] left-[28%] text-[#f59e0b] text-[7px] font-bold bg-[#051120] px-1 rounded z-20">T3 HIT</div>
+
+      <div className="absolute top-[45%] right-[22%] text-[#10b981] text-[7px] font-bold bg-[#051120] px-1 rounded z-20">T1 HIT</div>
+      <div className="absolute top-[32%] right-[15%] text-[#10b981] text-[7px] font-bold bg-[#051120] px-1 rounded z-20">T2 HIT</div>
+
+      {/* Resistance Line & Tag */}
+      <div className="absolute top-[40%] left-0 right-12 border-t border-[#ef4444] border-dashed opacity-70 z-10"></div>
+      <div className="absolute top-[40%] right-12 bg-[#ef4444] text-white text-[7px] font-bold px-1 py-0.5 -translate-y-1/2 z-20 flex gap-2 border border-[#ef4444]">
+        <span>RESISTANCE 56,364.93</span>
+        <div className="bg-[#10b981] text-black px-1 ml-2">56,355.45</div>
+        <div className="bg-[#f59e0b] text-black px-1">56,345.00</div>
+        <div className="bg-[#f59e0b] text-black px-1">56,319.80</div>
+      </div>
+
+      {/* SVG Canvas for Chart Elements */}
+      <svg className="absolute inset-0 w-[calc(100%-3rem)] h-[calc(100%-1rem)]" preserveAspectRatio="none" viewBox="0 0 1000 400">
+         {/* Moving Averages */}
+         <path d="M 0 120 Q 50 100, 100 130 T 200 180 T 300 230 T 400 250 T 500 270 T 600 290 T 700 320 T 800 280 T 900 260 T 1000 240" fill="none" stroke="#3b82f6" strokeWidth="2" className="opacity-90" />
+         <path d="M 0 150 Q 50 140, 100 160 T 200 190 T 300 220 T 400 250 T 500 275 T 600 290 T 700 340 T 800 310 T 900 290 T 1000 260" fill="none" stroke="#f59e0b" strokeWidth="2" className="opacity-90" />
+         
+         {/* Candlesticks (Highly dense, matching screenshot) */}
+         {/* Using a group to apply common properties */}
+         <g strokeWidth="1.5">
+           {/* Section 1: Peak & drop */}
+           <line x1="20" y1="120" x2="20" y2="150" stroke="#10b981" />
+           <rect x="18" y="130" width="4" height="15" fill="#10b981" />
+           
+           <line x1="40" y1="110" x2="40" y2="140" stroke="#10b981" />
+           <rect x="38" y="115" width="4" height="20" fill="#10b981" />
+           <circle cx="40" cy="115" r="3" fill="white" /> {/* White dot */}
+           
+           <line x1="60" y1="110" x2="60" y2="160" stroke="#ef4444" />
+           <rect x="58" y="115" width="4" height="40" fill="#ef4444" />
+           <circle cx="60" cy="115" r="3" fill="white" /> {/* Red signal start */}
+           <circle cx="60" cy="165" r="3" fill="#ef4444" /> {/* Red diamond/dot down */}
+           
+           <line x1="80" y1="140" x2="80" y2="190" stroke="#ef4444" />
+           <rect x="78" y="150" width="4" height="35" fill="#ef4444" />
+           
+           <line x1="100" y1="170" x2="100" y2="210" stroke="#ef4444" />
+           <rect x="98" y="180" width="4" height="25" fill="#ef4444" />
+           
+           <line x1="120" y1="200" x2="120" y2="230" stroke="#ef4444" />
+           <rect x="118" y="210" width="4" height="15" fill="#ef4444" />
+
+           {/* Section 2: Consolidation */}
+           <line x1="160" y1="220" x2="160" y2="240" stroke="#10b981" />
+           <rect x="158" y="225" width="4" height="10" fill="#10b981" />
+           
+           <line x1="180" y1="225" x2="180" y2="250" stroke="#ef4444" />
+           <rect x="178" y="230" width="4" height="15" fill="#ef4444" />
+           
+           <line x1="200" y1="240" x2="200" y2="260" stroke="#ef4444" />
+           <rect x="198" y="245" width="4" height="10" fill="#ef4444" />
+           
+           <line x1="220" y1="235" x2="220" y2="255" stroke="#10b981" />
+           <rect x="218" y="240" width="4" height="10" fill="#10b981" />
+           
+           <line x1="240" y1="240" x2="240" y2="265" stroke="#ef4444" />
+           <rect x="238" y="245" width="4" height="15" fill="#ef4444" />
+           
+           <line x1="260" y1="235" x2="260" y2="260" stroke="#10b981" />
+           <rect x="258" y="240" width="4" height="15" fill="#10b981" />
+           
+           {/* Section 3: Consolidation cont. */}
+           <line x1="320" y1="240" x2="320" y2="265" stroke="#ef4444" />
+           <rect x="318" y="245" width="4" height="15" fill="#ef4444" />
+
+           <line x1="340" y1="245" x2="340" y2="270" stroke="#ef4444" />
+           <rect x="338" y="250" width="4" height="15" fill="#ef4444" />
+           
+           <line x1="360" y1="240" x2="360" y2="260" stroke="#10b981" />
+           <rect x="358" y="245" width="4" height="10" fill="#10b981" />
+           
+           <line x1="380" y1="250" x2="380" y2="280" stroke="#ef4444" />
+           <rect x="378" y="255" width="4" height="20" fill="#ef4444" />
+           
+           {/* Section 4: Deep drop */}
+           <line x1="420" y1="260" x2="420" y2="300" stroke="#ef4444" />
+           <rect x="418" y="265" width="4" height="30" fill="#ef4444" />
+           
+           <line x1="440" y1="280" x2="440" y2="330" stroke="#ef4444" />
+           <rect x="438" y="290" width="4" height="35" fill="#ef4444" />
+           
+           <line x1="460" y1="310" x2="460" y2="360" stroke="#ef4444" />
+           <rect x="458" y="320" width="4" height="35" fill="#ef4444" />
+           
+           <line x1="480" y1="340" x2="480" y2="380" stroke="#ef4444" />
+           <rect x="478" y="350" width="4" height="25" fill="#ef4444" />
+
+           {/* Section 5: Reversal Buy */}
+           <line x1="520" y1="320" x2="520" y2="370" stroke="#10b981" />
+           <rect x="518" y="330" width="4" height="40" fill="#10b981" />
+           
+           <line x1="540" y1="290" x2="540" y2="340" stroke="#10b981" />
+           <rect x="538" y="300" width="4" height="35" fill="#10b981" />
+           <circle cx="540" cy="345" r="3" fill="white" /> {/* White dot for buy */}
+           <circle cx="540" cy="285" r="3" fill="#10b981" /> {/* Green diamond/dot top */}
+           
+           <line x1="560" y1="300" x2="560" y2="320" stroke="#ef4444" />
+           <rect x="558" y="305" width="4" height="10" fill="#ef4444" />
+           
+           <line x1="580" y1="290" x2="580" y2="310" stroke="#10b981" />
+           <rect x="578" y="295" width="4" height="10" fill="#10b981" />
+           
+           {/* Section 6: Rally to T1, T2 */}
+           <line x1="620" y1="270" x2="620" y2="300" stroke="#10b981" />
+           <rect x="618" y="275" width="4" height="20" fill="#10b981" />
+           
+           <line x1="640" y1="250" x2="640" y2="280" stroke="#10b981" />
+           <rect x="638" y="255" width="4" height="20" fill="#10b981" />
+           
+           <line x1="660" y1="220" x2="660" y2="260" stroke="#10b981" />
+           <rect x="658" y="225" width="4" height="30" fill="#10b981" />
+           
+           <line x1="680" y1="230" x2="680" y2="250" stroke="#ef4444" />
+           <rect x="678" y="235" width="4" height="10" fill="#ef4444" />
+           
+           <line x1="700" y1="240" x2="700" y2="260" stroke="#ef4444" />
+           <rect x="698" y="245" width="4" height="10" fill="#ef4444" />
+           
+           <line x1="720" y1="220" x2="720" y2="250" stroke="#10b981" />
+           <rect x="718" y="225" width="4" height="20" fill="#10b981" />
+           
+           <line x1="740" y1="230" x2="740" y2="260" stroke="#10b981" />
+           <rect x="738" y="235" width="4" height="20" fill="#10b981" />
+         </g>
+      </svg>
     </div>
   );
 };
